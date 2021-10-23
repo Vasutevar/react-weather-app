@@ -10,7 +10,7 @@ const api = {
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState('');
-  const [atmosphere, setAtmosphere] = useState(null);
+  
 
   const search = (e) => {
     if (e.key === "Enter") {
@@ -19,10 +19,8 @@ function App() {
         .then(result => {
           setWeather(result);
           setQuery('');
-          if (result > 16) setAtmosphere('App-warm')
-          else if (result.main.temp < 0) setAtmosphere('App-snow')
-          else setAtmosphere('App')
-          console.log(result.main.temp);
+          
+          console.log(result);
         })
     }
   }
@@ -40,10 +38,10 @@ function App() {
   }
 
 
-  console.log("This is snow " , atmosphere)
+  
   return (
     
-    <div className={atmosphere ? atmosphere : 'App'}>
+    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'App warm' : 'App') : 'App'}>
       <main>
         <div className="search-box">
           <input type="text"
